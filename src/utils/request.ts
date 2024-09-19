@@ -5,58 +5,58 @@ import { LangCodeGoogle } from "./language";
 export const Endpoint = {
     INFO: "info",
     TEXT: "text",
-    AUDIO: "audio"
+    AUDIO: "audio",
 } as const;
 
-type EndpointType = typeof Endpoint[keyof typeof Endpoint];
+type EndpointType = (typeof Endpoint)[keyof typeof Endpoint];
 
 type Params = {
     [Endpoint.INFO]: {
-        body: string
-    },
+        body: string;
+    };
     [Endpoint.TEXT]: {
-        source: LangCodeGoogle<"source">,
-        target: LangCodeGoogle<"target">,
-        query: string
-    },
+        source: LangCodeGoogle<"source">;
+        target: LangCodeGoogle<"target">;
+        query: string;
+    };
     [Endpoint.AUDIO]: {
-        lang: LangCodeGoogle<"target">,
-        text: string,
-        textLength: number,
-        speed: number
-    }
+        lang: LangCodeGoogle<"target">;
+        text: string;
+        textLength: number;
+        speed: number;
+    };
 };
 
-const request = <T extends EndpointType>(
-    endpoint: T,
-    retry: number = 0
-) => ({
-    with: (
-        params: Params[T]
-    ) => {
+const request = <T extends EndpointType>(endpoint: T, retry: number = 0) => ({
+    with: (params: Params[T]) => {
         const promise = retrieve(endpoint, params);
         return {
             promise,
             doing: <V>(
-                callback: (res: AxiosResponse) => V | undefined
-            ): Promise<V | null> => (
-                promise.then(callback)
-                    .catch(() => undefined)
-                    .then(result =>
+                callback: (res: AxiosResponse<V>) => V | undefined
+            ): Promise<V | null> =>
+                promise
+                    .then(callback)
+                    .catch((error) => {
+                        console.error("Axios Error: ", error);
+                        return undefined;
+                    })
+                    .then((result) =>
                         isEmpty(result) && retry < 3
-                            ? request(endpoint, retry + 1).with(params).doing(callback)
+                            ? request(endpoint, retry + 1)
+                                  .with(params)
+                                  .doing(callback)
                             : result ?? null
-                    )
-            )
-        }
-    }
+                    ),
+        };
+    },
 });
 
-const isEmpty = (item: any) => (
-    !item || (typeof item === "object" && "length" in item && item.length <= 0)
-);
+const isEmpty = (item: any) =>
+    !item || (typeof item === "object" && "length" in item && item.length <= 0);
 
 const retrieve = <T extends EndpointType>(endpoint: T, params: Params[T]) => {
+    const userAgent = new UserAgent().toString(); // Reuse UserAgent for all requests
     if (endpoint === Endpoint.INFO) {
         const { body } = params as Params[typeof Endpoint.INFO];
         return axios.post(
@@ -64,34 +64,36 @@ const retrieve = <T extends EndpointType>(endpoint: T, params: Params[T]) => {
             body,
             {
                 headers: {
-                    "User-Agent": new UserAgent().toString(),
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
+                    "User-Agent": userAgent,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
             }
         );
     }
 
     if (endpoint === Endpoint.TEXT) {
-        const { source, target, query } = params as Params[typeof Endpoint.TEXT];
+        const { source, target, query } =
+            params as Params[typeof Endpoint.TEXT];
         return axios.get(
             `https://translate.google.com/m?sl=${source}&tl=${target}&q=${query}`,
             {
                 headers: {
-                    "User-Agent": new UserAgent().toString()
-                }
+                    "User-Agent": userAgent,
+                },
             }
         );
     }
 
     if (endpoint === Endpoint.AUDIO) {
-        const { lang, text, textLength, speed } = params as Params[typeof Endpoint.AUDIO];
+        const { lang, text, textLength, speed } =
+            params as Params[typeof Endpoint.AUDIO];
         return axios.get(
             `https://translate.google.com/translate_tts?tl=${lang}&q=${text}&textlen=${textLength}&speed=${speed}&client=tw-ob`,
             {
                 responseType: "arraybuffer",
                 headers: {
-                    "User-Agent": new UserAgent().toString()
-                }
+                    "User-Agent": userAgent,
+                },
             }
         );
     }
