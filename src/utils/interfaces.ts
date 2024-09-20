@@ -35,8 +35,7 @@ export interface TranslationInfo {
 
 export interface AudioEntry {
     lang: {
-        code: LangCode<"target">;
+        code: LangCode<"target"> | "auto";
     };
     text: string;
-    audio?: number[] | null;
 }
