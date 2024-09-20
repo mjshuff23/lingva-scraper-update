@@ -1,5 +1,5 @@
 {
-  "name": "lingva-scraper-custom",
+  "name": "lingva-scraper-update",
   "version": "1.0.0",
   "description": "Google Translate scraper for Lingva Translate",
   "main": "dist/index.js",
@@ -17,13 +17,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjshuff23/lingva-scraper-custom.git"
+    "url": "git+https://github.com/mjshuff23/lingva-scraper-update.git"
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/mjshuff23/lingva-scraper-custom/issues"
+    "url": "https://github.com/mjshuff23/lingva-scraper-update/issues"
   },
-  "homepage": "https://github.com/mjshuff23/lingva-scraper-custom#readme",
+  "homepage": "https://github.com/mjshuff23/lingva-scraper-update#readme",
   "private": false,
   "keywords": [
     "lingva",
