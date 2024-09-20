@@ -1,34 +1,42 @@
 import { LangCode } from "./language";
 
 interface DefinitionsGroup {
-    type: string,
+    type: string;
     list: {
-        definition: string,
-        example: string,
-        field?: string,
-        synonyms: string[]
-    }[]
+        definition: string;
+        example: string;
+        field?: string;
+        synonyms: string[];
+    }[];
 }
 
 interface ExtraTranslationsGroup {
-    type: string,
+    type: string;
     list: {
-        word: string,
-        article?: string,
-        frequency: number,
-        meanings: string[]
-    }[]
+        word: string;
+        article?: string;
+        frequency: number;
+        meanings: string[];
+    }[];
 }
 
 export interface TranslationInfo {
-    detectedSource?: LangCode<"source">,
-    typo?: string,
+    detectedSource?: LangCode<"source">;
+    typo?: string;
     pronunciation: {
-        query?: string,
-        translation?: string
-    },
-    definitions: DefinitionsGroup[],
-    examples: string[],
-    similar: string[],
-    extraTranslations: ExtraTranslationsGroup[]
+        query?: string;
+        translation?: string;
+    };
+    definitions: DefinitionsGroup[];
+    examples: string[];
+    similar: string[];
+    extraTranslations: ExtraTranslationsGroup[];
+}
+
+export interface AudioEntry {
+    lang: {
+        code: LangCode<"target">;
+    };
+    text: string;
+    audio?: number[] | null;
 }
