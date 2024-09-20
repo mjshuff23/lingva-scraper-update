@@ -3,13 +3,13 @@
 Just install the package using NPM
 
 ```shell
-npm i --save lingva-scraper-update-update
+npm i --save lingva-scraper-update
 ```
 
 Or using Yarn
 
 ```shell
-yarn add lingva-scraper-update-update
+yarn add lingva-scraper-update
 ```
 
 And import it directly using CommonJS
