@@ -1,6 +1,6 @@
 {
-  "name": "lingva-scraper",
-  "version": "1.1.0",
+  "name": "lingva-scraper-custom",
+  "version": "1.0.0",
   "description": "Google Translate scraper for Lingva Translate",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,16 +8,22 @@
     "build": "tsc",
     "test": "jest"
   },
-  "author": "thedaviddelta",
+  "author": "thedaviddelta, Michael Shuff",
+  "contributors": [
+    {
+      "name": "Michael Shuff",
+      "email": "mjshuff23@gmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thedaviddelta/lingva-scraper.git"
+    "url": "git+https://github.com/mjshuff23/lingva-scraper-custom.git"
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/thedaviddelta/lingva-scraper/issues"
+    "url": "https://github.com/mjshuff23/lingva-scraper-custom/issues"
   },
-  "homepage": "https://github.com/thedaviddelta/lingva-scraper#readme",
+  "homepage": "https://github.com/mjshuff23/lingva-scraper-custom#readme",
   "private": false,
   "keywords": [
     "lingva",
