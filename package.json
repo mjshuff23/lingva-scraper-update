@@ -1,6 +1,6 @@
 {
   "name": "lingva-scraper-update",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Google Translate scraper for Lingva Translate",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
