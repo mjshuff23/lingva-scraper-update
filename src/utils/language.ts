@@ -5,7 +5,7 @@ export const LanguageType = {
     TARGET: "target"
 } as const;
 
-type LangType = typeof LanguageType[keyof typeof LanguageType];
+export type LangType = typeof LanguageType[keyof typeof LanguageType];
 
 export type LangCode<T extends LangType | void = void> =
     T extends LangType
