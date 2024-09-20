@@ -40,17 +40,17 @@ export const list = {
     similar: ({ 3: extra }: Data): TranslationInfo["similar"] => (
         extra?.[3]?.[0] ?? []
     ),
-    translations: ({ 3: extra }: Data): TranslationInfo["extraTranslations"] => (
+    extraTranslations: ({ 3: extra }: Data): TranslationInfo["extraTranslations"] => (
         extra?.[5]?.[0]?.map(([type, transList]) => ({
             type,
             list: transList?.map(([word, article, meanings, frequency]) => ({
                 word,
                 article: article ?? undefined,
                 meanings,
-                frequency: 4 - frequency // turn it around
+                frequency: 4 - frequency // Reverse the frequency ranking
             })) ?? []
         })) ?? []
-    ),
+    ), // Added extraTranslations here
 };
 
 type GenericObject<T> = { [k: string]: T } | Array<T>;

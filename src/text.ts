@@ -1,6 +1,7 @@
 import cheerio from "cheerio";
 import { mapGoogleCode, LangCode } from "./utils/language";
 import request, { Endpoint } from "./utils/request";
+import { AxiosResponse } from 'axios';
 
 /**
  * Retrieves the translation given a pair of languages and a query
@@ -19,18 +20,18 @@ export const getTranslationText = async (
 
     const encodedQuery = encodeURIComponent(query);
 
-    if (encodedQuery.length > 7500)
-        return null;
+    if (encodedQuery.length > 7500) return null;
 
     return request(Endpoint.TEXT)
         .with({ source: parsedSource, target: parsedTarget, query: encodedQuery })
-        .doing(({ data }) => {
-            if (!data)
-                return;
+        .doing(({ data }: AxiosResponse<string>) => {
+            if (!data) return undefined; // Ensure we only return `undefined` when there's no data
 
             const translation = cheerio.load(data)(".result-container").text()?.trim();
+            
+            // Ensure the return type is either `string` or `undefined`
             return translation && !translation.includes("#af-error-page")
                 ? translation
-                : null;
+                : undefined; // Changed from `null` to `undefined` to match the expected return type
         });
 };
