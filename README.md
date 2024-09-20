@@ -1,53 +1,33 @@
-<div align="center">
-    <img src="img/logo.svg" width="128">
-    <h1>Lingva Scraper</h1>
-    <div>
-        <a href="https://travis-ci.com/thedaviddelta/lingva-scraper">
-            <img src="https://travis-ci.com/thedaviddelta/lingva-scraper.svg?branch=main" alt="Travis Build">
-        </a>
-        <a href="https://npmjs.com/package/lingva-scraper">
-            <img alt="NPM Version" src="https://img.shields.io/npm/v/lingva-scraper">
-        </a>
-        <img alt="Commits since latest release" src="https://img.shields.io/github/commits-since/thedaviddelta/lingva-scraper/v1.1.0?color=20B2AA">
-        <a href="./LICENSE">
-            <img src="https://img.shields.io/github/license/thedaviddelta/lingva-scraper" alt="License">
-        </a>
-    </div>
-    <br />
-    Google Translate scraper for <a href="https://github.com/thedaviddelta/lingva-translate" target="_blank">Lingva Translate</a>
-    <hr />
-</div>
-
 ## Installation
 
 Just install the package using NPM
 
 ```shell
-npm i --save lingva-scraper
+npm i --save lingva-scraper-update-update
 ```
 
 Or using Yarn
 
 ```shell
-yarn add lingva-scraper
+yarn add lingva-scraper-update-update
 ```
 
 And import it directly using CommonJS
 
 ```javascript
-const { getTranslationInfo } = require("lingva-scraper");
+const { getTranslationInfo } = require("lingva-scraper-update");
 ```
 
 Or with the ES6 syntax
 
 ```javascript
-import { getTranslationInfo } from "lingva-scraper";
+import { getTranslationInfo } from "lingva-scraper-update";
 ```
 
 The package doesn't provide a default export, but you can alternatively use the wildcard import syntax
 
 ```javascript
-import * as LingvaScraper from "lingva-scraper";
+import * as LingvaScraper from "lingva-scraper-update";
 ```
 
 
@@ -64,7 +44,7 @@ getTranslationText(source: LangCode<"source">, target: LangCode<"target">, query
 Retrieves the translated text given a pair of languages and a query text.
 
 ```typescript
-import { getTranslationText } from "lingva-scraper";
+import { getTranslationText } from "lingva-scraper-update";
 
 const translation = await getTranslationText("auto", "es", "win");
 ```
@@ -78,7 +58,7 @@ getTranslationInfo(source: LangCode<"source">, target: LangCode<"target">, query
 Retrieves the full translation information, optionally including the detected source, typos, pronunciation representations, definitions, examples, similar words or extra translations.
 
 ```typescript
-import { getTranslationInfo } from "lingva-scraper";
+import { getTranslationInfo } from "lingva-scraper-update";
 
 const info = await getTranslationInfo("zh", "en", "早安");
 ```
@@ -92,7 +72,7 @@ getAudio(lang: LangCode<"target">, text: string, isSlow?: boolean): Promise<numb
 Retrieves an audio buffer in the form of a `Uint8Array`, and represented as a `number[]` in order to be serializable.
 
 ```typescript
-import { getAudio } from "lingva-scraper";
+import { getAudio } from "lingva-scraper-update";
 
 const audio = await getAudio("ca", "gerd");
 ```
@@ -106,7 +86,7 @@ There are also some utility constants and functions exported in order to ease th
 An enumeration representing the two language types (*source* and *target*) and very used among the rest of utilities.
 
 ```typescript
-import { LanguageType } from "lingva-scraper";
+import { LanguageType } from "lingva-scraper-update";
 
 LanguageType.SOURCE // "source"
 LanguageType.TARGET // "target"
@@ -117,7 +97,7 @@ LanguageType.TARGET // "target"
 An object that includes the whole list of languages used in this package, as well as two other properties with the language list filtered by type.
 
 ```typescript
-import { languageList } from "lingva-scraper";
+import { languageList } from "lingva-scraper-update";
 
 languageList.all // whole list
 languageList.source // i.e. languageList[LanguageType.SOURCE]
@@ -129,7 +109,7 @@ languageList.target // i.e. languageList[LanguageType.TARGET]
 A function that checks whether a string is a valid language code, optionally differentiating it based on a certain language type.
 
 ```typescript
-import { isValidCode } from "lingva-scraper";
+import { isValidCode } from "lingva-scraper-update";
 
 const isValidLang = isValidCode(str);
 const isValidSource = isValidCode(str, LanguageType.SOURCE);
@@ -140,7 +120,7 @@ const isValidSource = isValidCode(str, LanguageType.SOURCE);
 A function that checks whether a language code is valid regarding a language type, and changes it with a suitable replacement if not.
 
 ```typescript
-import { replaceExceptedCode } from "lingva-scraper";
+import { replaceExceptedCode } from "lingva-scraper-update";
 
 const targetLang = replaceExceptedCode(LanguageType.TARGET, lang);
 ```
@@ -150,7 +130,7 @@ const targetLang = replaceExceptedCode(LanguageType.TARGET, lang);
 A function that maps the given *Lingva* language code with a valid *Google* one, in case they're different.
 
 ```typescript
-import { mapGoogleCode } from "lingva-scraper";
+import { mapGoogleCode } from "lingva-scraper-update";
 
 const googleLang = mapGoogleCode(lang);
 ```
@@ -160,7 +140,7 @@ const googleLang = mapGoogleCode(lang);
 A function that maps the given *Google* language code with a valid *Lingva* one, in case they're different.
 
 ```typescript
-import { mapLingvaCode } from "lingva-scraper";
+import { mapLingvaCode } from "lingva-scraper-update";
 
 const lang = mapLingvaCode(googleLang);
 ```
