@@ -1,9 +1,14 @@
-import { mapGoogleCode, LangCode } from "./utils/language";
-import request, { Endpoint } from "./utils/request";
 import * as parse from "./utils/parse";
-import { Boilerplate, Data } from "./utils/types";
-import { TranslationInfo } from "./utils/interfaces";
+import {
+    Data,
+    TranslationInfo,
+    Endpoint,
+    request,
+    mapGoogleCode,
+    LangCode,
+} from "./utils";
 import { AxiosResponse } from "axios";
+import { Boilerplate } from './types';
 
 /**
  * Retrieves the full translation information given a pair of languages and a query
@@ -33,7 +38,9 @@ export const getTranslationInfo = async (
         .with({ body })
         .doing(({ data }: AxiosResponse<TranslationInfo | null>) => {
             if (typeof data === "string") {
-                const resBoilerplate: Boilerplate = JSON.parse((data as string).split("\n")?.[3] || "");
+                const resBoilerplate: Boilerplate = JSON.parse(
+                    (data as string).split("\n")?.[3] || ""
+                );
                 const resData: Data = JSON.parse(resBoilerplate?.[0]?.[2]);
                 if (!resData) return null;
 
@@ -49,7 +56,8 @@ export const getTranslationInfo = async (
                     definitions: parse.list.definitions(resData),
                     examples: parse.list.examples(resData),
                     similar: parse.list.similar(resData),
-                    extraTranslations: parse.list.extraTranslations?.(resData) || [],
+                    extraTranslations:
+                        parse.list.extraTranslations?.(resData) || [],
                 });
             }
 
@@ -60,4 +68,3 @@ export const getTranslationInfo = async (
             return null;
         });
 };
-

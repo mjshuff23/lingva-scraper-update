@@ -1,7 +1,7 @@
 import axios from "axios";
 import UserAgent from "user-agents";
 import { EndpointType, RequestParams } from "./types";
-import { Endpoint } from "./request";
+import { Endpoint } from '.';
 
 const retrieveInfo = (body: string, options: any) => {
     return axios.post(

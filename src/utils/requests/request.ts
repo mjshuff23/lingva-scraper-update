@@ -1,13 +1,7 @@
-import { RequestParams } from './types';
-import { handleError, isEmpty } from './helpers';
-import retrieve from './retrieve';
-import { AxiosResponse } from 'axios';
-
-export const Endpoint = {
-    INFO: "info",
-    TEXT: "text",
-    AUDIO: "audio",
-} as const;
+import { RequestParams } from "./types";
+import { handleError, isEmpty } from "./helpers";
+import retrieve from "./retrieve";
+import { AxiosResponse } from "axios";
 
 const retryRequest = <EndpointType extends keyof RequestParams, ResponseType>(
     endpoint: EndpointType,
@@ -32,7 +26,7 @@ const evaluateResult = <ResponseType>(
         : Promise.resolve(result ?? null);
 };
 
-const request = <EndpointType extends keyof RequestParams>(
+export const request = <EndpointType extends keyof RequestParams>(
     endpoint: EndpointType,
     retry: number = 0
 ) => ({
@@ -60,5 +54,3 @@ const request = <EndpointType extends keyof RequestParams>(
         };
     },
 });
-
-export default request;

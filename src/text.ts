@@ -1,7 +1,6 @@
 import { load } from "cheerio";
-import { mapGoogleCode, LangCode } from "./utils/language";
-import request, { Endpoint } from "./utils/request";
-import { AxiosResponse } from 'axios';
+import { request, Endpoint, mapGoogleCode, LangCode } from "./utils";
+import { AxiosResponse } from "axios";
 
 const MAX_QUERY_LENGTH = 7500;
 
@@ -12,7 +11,9 @@ const isHtmlContent = (headers: Record<string, any>) => {
 
 const extractTranslation = (html: string): string | undefined => {
     const translation = load(html)(".result-container").text()?.trim();
-    return translation && !translation.includes("#af-error-page") ? translation : undefined;
+    return translation && !translation.includes("#af-error-page")
+        ? translation
+        : undefined;
 };
 
 /**
@@ -34,7 +35,11 @@ export const getTranslationText = async (
     if (encodedQuery.length > MAX_QUERY_LENGTH) return null;
 
     return request(Endpoint.TEXT)
-        .with({ source: parsedSource, target: parsedTarget, query: encodedQuery })
+        .with({
+            source: parsedSource,
+            target: parsedTarget,
+            query: encodedQuery,
+        })
         .doing(({ data, headers }: AxiosResponse<string>) => {
             if (isHtmlContent(headers)) {
                 return extractTranslation(data);

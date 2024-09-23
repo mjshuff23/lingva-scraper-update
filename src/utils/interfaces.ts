@@ -1,4 +1,4 @@
-import { LangCode } from "./language";
+import { LangCode } from "./languages";
 
 interface DefinitionsGroup {
     type: string;

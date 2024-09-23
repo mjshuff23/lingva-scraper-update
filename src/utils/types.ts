@@ -1,27 +1,4 @@
-import { LangCodeGoogle } from "./language";
-import { Endpoint } from './request';
-
-export type Boilerplate = [
-    [
-        "wrb.fr",
-        "MkEWBc",
-        string, // data
-        null,
-        null,
-        null,
-        "generic"
-    ],
-    [
-        "di",
-        number
-    ],
-    [
-        "af.httprm",
-        number,
-        string,
-        number
-    ]
-];
+import { LangCodeGoogle } from "./languages";
 
 export type Data = [
     DataSource,
@@ -32,23 +9,27 @@ export type Data = [
 
 type DataSource = [
     string | null, // pronunciation
-    [
-        [
-            [
-                null,
-                string
-            ],
-            string, // text
-            1,
-            [
-                1
-            ],
-            string // typo
-        ] | null,
-        [
-            LangCodeGoogle<"source"> // lang
-        ] | null
-    ] | null,
+    (
+        | [
+              (
+                  | [
+                        [null, string],
+                        string, // text
+                        1,
+                        [1],
+                        string // typo
+                    ]
+                  | null
+              ),
+              (
+                  | [
+                        LangCodeGoogle<"source"> // lang
+                    ]
+                  | null
+              )
+          ]
+        | null
+    ),
     LangCodeGoogle<"source"> | null, // detected
     [
         [
@@ -61,9 +42,7 @@ type DataSource = [
                             number // textlen
                         ]
                     ],
-                    [
-                        true
-                    ]
+                    [true]
                 ]
             ]
         ],
@@ -79,7 +58,8 @@ type DataSource = [
     ]
 ];
 
-type DataTarget = [ // target
+type DataTarget = [
+    // target
     [
         [
             null,
@@ -92,7 +72,8 @@ type DataTarget = [ // target
                 null,
                 null,
                 null,
-                [ // more
+                [
+                    // more
                     string,
                     number[]
                 ][]
@@ -112,83 +93,90 @@ type DataTarget = [ // target
 
 type DataExtra = [
     string, // query
-    [ // definitions
-        [
-            string, // type
-            [
-                string, // definition
-                string, // example
-                true | null,
-                null,
-                [
-                    [
-                        string // field
-                    ]
-                ] | null,
-                [ // synonyms
-                    [
-                        string // synonym
-                    ][],
-                    [
-                        [
-                            string // type
-                        ]
-                    ] | undefined
-                ][] | undefined
-            ][]
-        ][],
-        number,
-        true | undefined
-    ] | null,
-    [ // examples
-        [
-            null,
-            string // example
-        ][],
-        number,
-        number
-    ] | null,
-    [ // similar
-        string[], // words
-        null,
-        number
-    ] | null,
+    (
+        | [
+              // definitions
+              [
+                  string, // type
+                  [
+                      string, // definition
+                      string, // example
+                      true | null,
+                      null,
+                      (
+                          | [
+                                [
+                                    string // field
+                                ]
+                            ]
+                          | null
+                      ),
+                      (
+                          | [
+                                // synonyms
+                                [
+                                    string // synonym
+                                ][],
+                                (
+                                    | [
+                                          [
+                                              string // type
+                                          ]
+                                      ]
+                                    | undefined
+                                )
+                            ][]
+                          | undefined
+                      )
+                  ][]
+              ][],
+              number,
+              true | undefined
+          ]
+        | null
+    ),
+    (
+        | [
+              // examples
+              [
+                  null,
+                  string // example
+              ][],
+              number,
+              number
+          ]
+        | null
+    ),
+    (
+        | [
+              // similar
+              string[], // words
+              null,
+              number
+          ]
+        | null
+    ),
     null,
-    [ // translations
-        [
-            string, // type
-            [
-                string, // word,
-                string | null, // article
-                string[], // meanings
-                number, // frequency
-                true
-            ][],
-            LangCodeGoogle<"target">, // target
-            LangCodeGoogle<"source"> // source/detected
-        ][]
-    ] | null,
+    (
+        | [
+              // translations
+              [
+                  string, // type
+                  [
+                      string, // word,
+                      string | null, // article
+                      string[], // meanings
+                      number, // frequency
+                      true
+                  ][],
+                  LangCodeGoogle<"target">, // target
+                  LangCodeGoogle<"source"> // source/detected
+              ][]
+          ]
+        | null
+    ),
     null,
     null,
     LangCodeGoogle<"source">, // source/detected
     number
 ];
-
-export type EndpointType = (typeof Endpoint)[keyof typeof Endpoint];
-
-export type RequestParams = {
-    [Endpoint.INFO]: {
-        body: string;
-    };
-    [Endpoint.TEXT]: {
-        source: LangCodeGoogle<"source">;
-        target: LangCodeGoogle<"target">;
-        query: string;
-    };
-    [Endpoint.AUDIO]: {
-        lang: LangCodeGoogle<"target">;
-        text: string;
-        textLength: number;
-        speed: number;
-    };
-};
