@@ -1,4 +1,4 @@
-## Installation
+# Installation
 
 Just install the package using NPM
 
@@ -29,7 +29,6 @@ The package doesn't provide a default export, but you can alternatively use the 
 ```javascript
 import * as LingvaScraper from "lingva-scraper-update";
 ```
-
 
 ## Usage
 
@@ -145,7 +144,6 @@ import { mapLingvaCode } from "lingva-scraper-update";
 const lang = mapLingvaCode(googleLang);
 ```
 
-
 ## Related projects
 
 + [Lingva Translate](https://github.com/thedaviddelta/lingva-translate) - The web application for which this package was built
@@ -172,10 +170,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-
 ## License
 
-[![](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](https://www.gnu.org/licenses/agpl-3.0.html)
+[![GNU GPLv3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](https://www.gnu.org/licenses/agpl-3.0.html)
 
 Copyright © 2022 [thedaviddelta](https://github.com/thedaviddelta) & contributors.  
 This project is [GNU GPLv3](./LICENSE) licensed.

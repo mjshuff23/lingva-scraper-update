@@ -2,6 +2,26 @@ import { Data } from "./types";
 import { mapLingvaCode } from "./languages/language";
 import { TranslationInfo } from "./interfaces";
 
+// Helper types
+type DefinitionEntry = {
+    definition: string;
+    example: string;
+    field?: string;
+    synonyms: string[];
+};
+
+type SynonymList = [string][];
+type SynonymItem = [string];
+
+// GenericObject definition
+type GenericObject<T> = { [k: string]: T } | Array<T>;
+
+const isObject = (
+    value: unknown
+): value is GenericObject<object | string | number> =>
+    typeof value === "object" && value !== null;
+
+// Main Functions
 export const detected = ([
     source,
     target,
@@ -32,7 +52,7 @@ export const pronunciation = {
 
 export const list = {
     definitions: ({ 3: extra }: Data): TranslationInfo["definitions"] =>
-        extra?.[1]?.[0]?.map(([type, defList]) => ({
+        extra?.[1]?.[0]?.map(([type, defList]: [string, any[]]) => ({
             type,
             list:
                 defList?.map(
@@ -41,14 +61,19 @@ export const list = {
                         1: example,
                         4: fieldWrapper,
                         5: synList,
-                    }) => ({
+                    }: {
+                        0: string;
+                        1: string;
+                        4?: string;
+                        5?: SynonymList;
+                    }): DefinitionEntry => ({
                         definition,
                         example,
                         field: fieldWrapper?.[0]?.[0],
                         synonyms:
                             synList
-                                ?.flatMap((synItem) =>
-                                    synItem?.[0]?.map(([item]) => item)
+                                ?.flatMap((synItem: SynonymItem) =>
+                                    synItem ?? []
                                 )
                                 ?.filter((item): item is string => !!item) ??
                             [],
@@ -56,40 +81,37 @@ export const list = {
                 ) ?? [],
         })) ?? [],
     examples: ({ 3: extra }: Data): TranslationInfo["examples"] =>
-        extra?.[2]?.[0]?.map(([, item]) => item) ?? [],
+        extra?.[2]?.[0]?.map(([, item]: [null, string]) => item) ?? [],
     similar: ({ 3: extra }: Data): TranslationInfo["similar"] =>
         extra?.[3]?.[0] ?? [],
     extraTranslations: ({
         3: extra,
     }: Data): TranslationInfo["extraTranslations"] =>
-        extra?.[5]?.[0]?.map(([type, transList]) => ({
-            type,
-            list:
-                transList?.map(([word, article, meanings, frequency]) => ({
-                    word,
-                    article: article ?? undefined,
-                    meanings,
-                    frequency: 4 - frequency, // Reverse the frequency ranking
-                })) ?? [],
-        })) ?? [], // Added extraTranslations here
+        extra?.[5]?.[0]?.map(
+            ([type, transList]) => ({
+                type,
+                list:
+                    transList?.map(([word, article, meanings, frequency]) => ({
+                        word,
+                        article: article ?? undefined,
+                        meanings,
+                        frequency: 4 - frequency, // Reverse the frequency ranking
+                    })) ?? [],
+            })
+        ) ?? [],
 };
 
-type GenericObject<T> = { [k: string]: T } | Array<T>;
-
-const isObject = (
-    value: unknown
-): value is GenericObject<object | string | number> =>
-    typeof value === "object";
-
+// Utility function to remove undefined fields
 export const undefinedFields = <T extends GenericObject<V | undefined>, V>(
     obj: T
 ): T => {
-    if (Array.isArray(obj))
+    if (Array.isArray(obj)) {
         return obj
             .filter((item): item is V => !!item)
             .map((item) =>
                 isObject(item) ? undefinedFields(item) : item
             ) as T;
+    }
 
     const entries = Object.entries(obj)
         .filter((entry): entry is [string, V] => !!entry[1])
