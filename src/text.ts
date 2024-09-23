@@ -17,21 +17,23 @@ export const getTranslationText = async (
 ): Promise<string | null> => {
     const parsedSource = mapGoogleCode(source);
     const parsedTarget = mapGoogleCode(target);
-
     const encodedQuery = encodeURIComponent(query);
 
     if (encodedQuery.length > 7500) return null;
 
     return request(Endpoint.TEXT)
         .with({ source: parsedSource, target: parsedTarget, query: encodedQuery })
-        .doing(({ data }: AxiosResponse<string>) => {
-            if (!data) return undefined; // Ensure we only return `undefined` when there's no data
+        .doing(({ data, headers }: AxiosResponse<string>) => {
+            // Check if content-type header exists and is of type text/html
+            const contentType = headers["content-type"];
+            if (contentType && contentType.includes("text/html")) {
+                console.log('Response is HTML, parsing with Cheerio');
+                const translation = cheerio.load(data)(".result-container").text()?.trim();
+                return translation && !translation.includes("#af-error-page") ? translation : undefined;
+            }
 
-            const translation = cheerio.load(data)(".result-container").text()?.trim();
-            
-            // Ensure the return type is either `string` or `undefined`
-            return translation && !translation.includes("#af-error-page")
-                ? translation
-                : undefined; // Changed from `null` to `undefined` to match the expected return type
+            // If content-type is not HTML, handle accordingly (e.g., return null or handle non-HTML response)
+            console.log('Response is not HTML, returning null or error');
+            return undefined;
         });
 };
