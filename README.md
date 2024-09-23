@@ -152,7 +152,6 @@ const lang = mapLingvaCode(googleLang);
 + [SimplyTranslate-Engines](https://codeberg.org/SimpleWeb/SimplyTranslate-Engines) - The backend for SimplyTranslate, which helped to discover some key endpoints
 + [Kainet Scraper](https://github.com/thedaviddelta/kainet-scraper) - A YouTube Music scraper built by the same author with a similar structure
 
-
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

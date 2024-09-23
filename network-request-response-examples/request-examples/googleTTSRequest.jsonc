@@ -1,0 +1,13 @@
+{
+  "tl": "target_language",  // Language code for TTS (e.g., "en" for English)
+  "q": "Text to synthesize",  // The text input (e.g., "Hello")
+  "client": "tw-ob"  // Identifies the client type (common value for unofficial API)
+}
+
+/* 
+Key Points:
+- tl: Target language code for the TTS request.
+- q: The text to be converted to speech.
+- client: Specifies the client (commonly set to "tw-ob" for mobile clients).
+- This request is often sent via a GET request with parameters encoded directly in the URL.
+*/

@@ -1,7 +1,19 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 import { mapGoogleCode, LangCode } from "./utils/language";
 import request, { Endpoint } from "./utils/request";
 import { AxiosResponse } from 'axios';
+
+const MAX_QUERY_LENGTH = 7500;
+
+const isHtmlContent = (headers: Record<string, any>) => {
+    const contentType = headers["content-type"];
+    return typeof contentType === "string" && contentType.includes("text/html");
+};
+
+const extractTranslation = (html: string): string | undefined => {
+    const translation = load(html)(".result-container").text()?.trim();
+    return translation && !translation.includes("#af-error-page") ? translation : undefined;
+};
 
 /**
  * Retrieves the translation given a pair of languages and a query
@@ -19,21 +31,15 @@ export const getTranslationText = async (
     const parsedTarget = mapGoogleCode(target);
     const encodedQuery = encodeURIComponent(query);
 
-    if (encodedQuery.length > 7500) return null;
+    if (encodedQuery.length > MAX_QUERY_LENGTH) return null;
 
     return request(Endpoint.TEXT)
         .with({ source: parsedSource, target: parsedTarget, query: encodedQuery })
         .doing(({ data, headers }: AxiosResponse<string>) => {
-            // Check if content-type header exists and is of type text/html
-            const contentType = headers["content-type"];
-            if (contentType && contentType.includes("text/html")) {
-                console.log('Response is HTML, parsing with Cheerio');
-                const translation = cheerio.load(data)(".result-container").text()?.trim();
-                return translation && !translation.includes("#af-error-page") ? translation : undefined;
+            if (isHtmlContent(headers)) {
+                return extractTranslation(data);
             }
 
-            // If content-type is not HTML, handle accordingly (e.g., return null or handle non-HTML response)
-            console.log('Response is not HTML, returning null or error');
             return undefined;
         });
 };

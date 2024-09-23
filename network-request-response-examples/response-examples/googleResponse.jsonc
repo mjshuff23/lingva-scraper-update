@@ -1,0 +1,49 @@
+[
+  [
+    [
+      [
+        "Hallo",   // Original text
+        "Hello",   // Translated text
+        "en",      // Detected source language
+        true,      // Is translation successful?
+        [
+          ["Hallo", ["hɑːloʊ"], ["Hi", "Greetings"], "Informal"],
+          ["Hallo", ["hɑːloʊ"], ["Hello", "Salutations"], "Formal"]
+        ], // Pronunciations and alternative translations
+        ["Definition of Hallo", "Usage in a sentence", "Similar words"]
+      ],
+      null, // No secondary translation
+      {
+        "definitions": {
+          "noun": [
+            {
+              "definition": "A greeting used in English",
+              "example": "He said hello.",
+              "synonyms": ["greeting", "salutation"]
+            }
+          ],
+          "verb": [
+            {
+              "definition": "To call out to someone",
+              "example": "He halloed across the street.",
+              "synonyms": ["shout", "yell"]
+            }
+          ]
+        }
+      }, // Word definitions
+      {
+        "source_language": "de", // Detected source language
+        "target_language": "en", // Target language
+        "confidence": 0.98       // Confidence score for detection
+      }
+    ]
+  ]
+]
+
+/**
+translations: Contains the primary translation along with pronunciation and alternative translations.
+definitions: Provides detailed definitions, example sentences, and synonyms for each word.
+source_language and target_language: The detected source and target languages.
+Confidence score: How confident Google is in the source language detection.
+This structure requires careful parsing to extract the translation, alternative translations, definitions, and confidence scores. Some responses may omit certain fields (like definitions), so fallbacks are necessary.
+**/

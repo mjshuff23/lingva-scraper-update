@@ -1,0 +1,14 @@
+{
+  "text": "Text to translate",  // The text input (e.g., "Hallo")
+  "source_lang": "source_language",  // Source language code (e.g., "de")
+  "target_lang": "target_language",  // Target language code (e.g., "en")
+  "formality": "informal"  // Optional formality indicator ("informal", "formal")
+}
+
+/* 
+Key Points:
+- text: The text input that needs to be translated.
+- source_lang: The source language code (e.g., "de" for German).
+- target_lang: The target language code (e.g., "en" for English).
+- formality: Optional formality setting, which allows control over whether the translation should be formal or informal (this is specific to DeepL’s API).
+*/

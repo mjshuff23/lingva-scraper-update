@@ -1,0 +1,34 @@
+{
+  "translated_text": "Hello",
+  "contextual_alternatives": [
+    {
+      "alternative": "Hi",
+      "formality": "informal",
+      "frequency": 3
+    },
+    {
+      "alternative": "Greetings",
+      "formality": "formal",
+      "frequency": 2
+    }
+  ],
+  "definitions": {
+    "greeting": [
+      {
+        "definition": "An expression of goodwill or salutation",
+        "example": "He greeted them with a warm hello."
+      }
+    ]
+  },
+  "source_language": "de",
+  "target_language": "en"
+}
+
+
+/**
+* Breakdown:
+* contextual_alternatives: Alternatives to the main translation, with formality levels and usage frequency scores.
+* definitions: Provides word-level definitions and usage examples.
+* source_language and target_language: Detected and target languages.
+* Reverso’s main strength is offering contextual alternatives, making it ideal for finding appropriate translations in different social situations.
+**/

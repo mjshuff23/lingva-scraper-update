@@ -1,0 +1,25 @@
+{
+  "format": "text",  // The format of the input text ("text" for standard input)
+  "from": "source_language",  // Source language code (e.g., "fra" for French)
+  "to": "target_language",  // Target language code (e.g., "eng" for English)
+  "input": "Text to translate",  // The actual text to translate
+  "options": {
+    "sentenceSplitter": "false",  // Splitting sentences (can be "true" or "false")
+    "origin": "translation.web",  // Indicates the client type (usually "translation.web")
+    "contextResults": "true",  // Whether to include context-based alternatives
+    "languageDetection": "true"  // Whether to auto-detect the source language
+  }
+}
+
+/* 
+Key Points:
+- format: Specifies the input format. Typically "text" for standard translation input.
+- from: The source language code.
+- to: The target language code.
+- input: The text that you wish to translate.
+- options:
+    - sentenceSplitter: Controls whether sentences should be split (useful for paragraphs).
+    - origin: Indicates the origin of the request (commonly "translation.web").
+    - contextResults: When set to true, Reverso provides contextual alternatives.
+    - languageDetection: Whether to auto-detect the language if the source language is not explicitly provided.
+*/

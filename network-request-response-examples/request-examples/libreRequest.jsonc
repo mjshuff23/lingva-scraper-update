@@ -1,0 +1,14 @@
+{
+  "q": "Text to translate",  // The text input (e.g., "Hello")
+  "source": "source_language",  // Source language code (e.g., "en")
+  "target": "target_language",  // Target language code (e.g., "es")
+  "api_key": "your_api_key"  // API key (optional, if needed)
+}
+
+/* 
+Key Points:
+- q: The main text input for the translation.
+- source: The source language code (can be "auto" if automatic detection is enabled).
+- target: The target language code.
+- api_key: If required by the LibreTranslate instance, this is the API key needed for authorization.
+*/

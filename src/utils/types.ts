@@ -1,4 +1,5 @@
 import { LangCodeGoogle } from "./language";
+import { Endpoint } from './request';
 
 export type Boilerplate = [
     [
@@ -172,3 +173,22 @@ type DataExtra = [
     LangCodeGoogle<"source">, // source/detected
     number
 ];
+
+export type EndpointType = (typeof Endpoint)[keyof typeof Endpoint];
+
+export type RequestParams = {
+    [Endpoint.INFO]: {
+        body: string;
+    };
+    [Endpoint.TEXT]: {
+        source: LangCodeGoogle<"source">;
+        target: LangCodeGoogle<"target">;
+        query: string;
+    };
+    [Endpoint.AUDIO]: {
+        lang: LangCodeGoogle<"target">;
+        text: string;
+        textLength: number;
+        speed: number;
+    };
+};

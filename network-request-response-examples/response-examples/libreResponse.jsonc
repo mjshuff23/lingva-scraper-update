@@ -1,0 +1,24 @@
+{
+  "translatedText": "Hola",
+  "source_language": "en",  // Detected source language
+  "target_language": "es",  // Target language
+  "confidence": 0.95,       // Optional confidence score (if supported)
+  "alignment": {            // Optional text alignment data (if enabled)
+    "original": "Hello",
+    "translated": "Hola"
+  },
+  "extra_info": {           // Some translations might include additional details
+    "formality": "informal", // If the translation was in a formal/informal context
+    "regional_variation": "Spain" // If a regional variant was used
+  }
+}
+
+/**
+* Breakdown:
+** translatedText: The primary translation result.
+** source_language and target_language: The detected and target languages.
+** confidence: Optional confidence score if the engine supports it.
+** alignment: Optional data indicating how text aligns between source and target languages (useful for sentence-by-sentence translations).
+** extra_info: Optional metadata such as formality levels or regional variations (if supported).
+** LibreTranslate’s response is simpler and doesn’t include as much metadata, but it may include some optional fields depending on configuration.
+**/

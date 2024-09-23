@@ -1,0 +1,25 @@
+{
+  "rpcids": "MkEWBc",  // Operation identifier for translation
+  "f.req": [
+    [
+      [
+        "Original text to be translated",  // The text input (e.g., "Hello")
+        "source_language",  // Language code for the source language (e.g., "auto" for auto-detection)
+        "target_language",  // Language code for the target language (e.g., "es" for Spanish)
+        true  // Additional parameter (likely for formatting or batching)
+      ],
+      [null]  // Secondary data (not always used)
+    ]
+  ],
+  "bl": "boq_translate-webserver_20210101.09_p1",  // Versioning or batching code
+  "rt": "c"  // Request type (commonly "c" for batch requests)
+}
+
+/* 
+Key Points:
+- rpcids: Identifies the specific translation operation. For translation requests, this value is "MkEWBc".
+- f.req: Encodes the text to be translated, source language, target language, and an additional boolean parameter (purpose not fully documented).
+- bl: A versioning or request batching identifier (specific to Google’s backend).
+- rt: Specifies that this is a batch request ("c" being a common identifier for batch operations).
+- The second array [null] might contain additional metadata depending on the request type or parameters.
+*/

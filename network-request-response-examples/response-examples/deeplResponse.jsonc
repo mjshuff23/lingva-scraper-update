@@ -1,0 +1,38 @@
+{
+  "translations": [
+    {
+      "text": "Hallo",
+      "detected_source_language": "de",
+      "alternatives": [
+        {
+          "text": "Hello",
+          "quality": 0.99,
+          "formality": "informal"
+        },
+        {
+          "text": "Greetings",
+          "quality": 0.90,
+          "formality": "formal"
+        }
+      ]
+    }
+  ],
+  "source_language": "de",
+  "target_language": "en",
+  "quality_score": 0.97,
+  "usage_examples": [
+    {
+      "source": "Guten Morgen",
+      "target": "Good Morning"
+    }
+  ]
+}
+
+/**
+* Breakdown:
+* text: The main translation.
+* alternatives: Lists alternative translations along with a formality indicator and quality score for each.
+* quality_score: Indicates the overall confidence in the translation.
+* usage_examples: Provides example sentences demonstrating the translated word/phrase.
+* DeepL’s responses are known for being very rich, with details on formality, quality, and additional alternative translations.
+**/

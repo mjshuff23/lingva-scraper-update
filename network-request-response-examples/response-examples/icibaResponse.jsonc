@@ -1,0 +1,35 @@
+{
+  "translated_text": "Hello",
+  "definitions": {
+    "noun": [
+      {
+        "definition": "A greeting or expression of goodwill",
+        "example": "He said hello.",
+        "synonyms": ["hi", "greetings"]
+      }
+    ],
+    "verb": [
+      {
+        "definition": "To call or shout to someone",
+        "example": "He helloed across the room."
+      }
+    ]
+  },
+  "usage_examples": [
+    {
+      "source_sentence": "Hallo",
+      "translated_sentence": "Hello"
+    }
+  ],
+  "source_language": "de",
+  "target_language": "en"
+}
+
+/**
+* Breakdown:
+* translated_text: The main translation result.
+* definitions: Similar to Google’s structure, provides word definitions and synonyms.
+* usage_examples: Example sentences that use the translation in context.
+* source_language and target_language: The languages involved.
+* ICIBA’s responses focus on word-level definitions and synonyms, offering a rich set of data for vocabulary learning.
+**/
